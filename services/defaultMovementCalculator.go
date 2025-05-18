@@ -57,3 +57,7 @@ func (calculator *DefaultMovementCalculator) GetRookPossibleMovements(rook *game
 
 	return possibleMovements
 }
+
+func (calculator *DefaultMovementCalculator) GetBishopPossibleMovements(rook *game.Piece, board *game.Board) []*game.Movement {
+	return []*game.Movement{}
+}

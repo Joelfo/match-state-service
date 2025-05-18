@@ -5,5 +5,6 @@ import (
 )
 
 type MovementCalculator interface {
+	GetBishopPossibleMovements(bishop *game.Piece, board *game.Board) []*game.Movement
 	GetRookPossibleMovements(rook *game.Piece, board *game.Board) []*game.Movement
 }

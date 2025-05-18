@@ -104,3 +104,41 @@ func TestGetRookPossibleMovements(t *testing.T) {
 	}
 
 }
+
+func TestGetBishopPossibleMovements(t *testing.T) {
+	calculator, err := getMovementCalculator()
+
+	if err != nil {
+		t.Fatalf("Error during Movement Calculator instantiation: %f", err)
+	}
+
+	board := game.NewEmptyBoard()
+
+	whiteBishop := &game.Piece{Type: pieceType.Bishop, Color: teamColors.White}
+	board.SetPieceAt(whiteBishop, 3, 5)
+
+	whiteRook := &game.Piece{Type: pieceType.Rook, Color: teamColors.White}
+	board.SetPieceAt(whiteRook, 1, 3)
+
+	blackQueen := &game.Piece{Type: pieceType.Queen, Color: teamColors.Black}
+	board.SetPieceAt(blackQueen, 5, 7)
+
+	blackRook := &game.Piece{Type: pieceType.Bishop, Color: teamColors.Black}
+	board.SetPieceAt(blackRook, 6, 2)
+
+	possibleMovements := calculator.GetBishopPossibleMovements(whiteBishop, board)
+
+	if len(possibleMovements) != 8 {
+		t.Errorf("Bishop possible movements are not in the same number as real possible movements.")
+	}
+
+	currentWhiteBishopPos := game.Position{X: 3, Y: 5}
+	for _, possibleMovement := range possibleMovements {
+		if possibleMovement.FinalPos.X == currentWhiteBishopPos.X || possibleMovement.FinalPos.Y == currentWhiteBishopPos.Y {
+			t.Errorf("Bishop is not able to move vertically or horizontally.")
+		}
+		if (possibleMovement.FinalPos.X == 0 && possibleMovement.FinalPos.Y == 2) || (possibleMovement.FinalPos.X == 7 && possibleMovement.FinalPos.Y == 7) {
+			t.Errorf("Bishop can not move through other pieces")
+		}
+	}
+}
