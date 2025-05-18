@@ -1,7 +1,6 @@
 package services
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/joelfo/match-state-service/models/game"
@@ -18,7 +17,7 @@ func getSetUpBoard(t *testing.T) *game.Board {
 }
 
 func getMovementCalculator() (MovementCalculator, error) {
-	return nil, errors.New("Not implemented yet")
+	return &DefaultMovementCalculator{}, nil
 }
 
 func TestGeralRulesOnPieceMovements(t *testing.T) {
